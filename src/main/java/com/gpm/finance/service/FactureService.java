@@ -109,4 +109,16 @@ public class FactureService {
         log.debug("Request to delete Facture : {}", id);
         factureRepository.deleteById(id);
     }
+
+    /**
+     * Find factures by clientId.
+     *
+     * @param clientId the clientId.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public java.util.List<FactureDTO> findByClientId(Long clientId) {
+        log.debug("Request to get Factures by clientId : {}", clientId);
+        return factureRepository.findByClientId(clientId).stream().map(factureMapper::toDto).collect(java.util.stream.Collectors.toList());
+    }
 }

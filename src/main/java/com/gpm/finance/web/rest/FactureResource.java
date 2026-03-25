@@ -180,4 +180,17 @@ public class FactureResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code GET  /factures/client/:clientId} : get factures by clientId.
+     *
+     * @param clientId the clientId to retrieve factures for.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of factures in body.
+     */
+    @GetMapping("/factures/client/{clientId}")
+    public ResponseEntity<List<FactureDTO>> findFactureByClientId(@PathVariable Long clientId) {
+        log.debug("REST request to get Factures by client id : {}", clientId);
+        List<FactureDTO> factures = factureService.findByClientId(clientId);
+        return ResponseEntity.ok().body(factures);
+    }
 }

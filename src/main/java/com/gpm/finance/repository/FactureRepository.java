@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FactureRepository extends JpaRepository<Facture, Long> {}
+public interface FactureRepository extends JpaRepository<Facture, Long> {
+    java.util.List<Facture> findByClientId(Long clientId);
+}
