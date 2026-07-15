@@ -61,6 +61,9 @@ public class CacheConfiguration {
             createCache(cm, com.gpm.finance.domain.FactureWO.class.getName());
             createCache(cm, com.gpm.finance.domain.FraisDeMission.class.getName());
             createCache(cm, com.gpm.finance.domain.OtExterne.class.getName());
+            createCache(cm, com.gpm.finance.domain.OtArticles.class.getName());
+            createCache(cm, com.gpm.finance.domain.BonCommande.class.getName());
+            createCache(cm, com.gpm.finance.domain.BonCommandeArticles.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

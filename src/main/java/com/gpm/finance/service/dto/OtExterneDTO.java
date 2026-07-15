@@ -45,6 +45,8 @@ public class OtExterneDTO implements Serializable {
 
     private String updatedByUserLogin;
 
+    private Long bonCommandeId;
+
     public Long getId() {
         return id;
     }
@@ -133,6 +135,14 @@ public class OtExterneDTO implements Serializable {
         this.updatedByUserLogin = updatedByUserLogin;
     }
 
+    public Long getBonCommandeId() {
+        return bonCommandeId;
+    }
+
+    public void setBonCommandeId(Long bonCommandeId) {
+        this.bonCommandeId = bonCommandeId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -169,6 +179,7 @@ public class OtExterneDTO implements Serializable {
             ", createdByUserLogin='" + getCreatedByUserLogin() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedByUserLogin='" + getUpdatedByUserLogin() + "'" +
+            ", bonCommandeId=" + getBonCommandeId() +
             "}";
     }
 }
