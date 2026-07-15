@@ -68,6 +68,9 @@ class OtExterneResourceIT {
     private static final String DEFAULT_UPDATED_BY_USER_LOGIN = "AAAAAAAAAA";
     private static final String UPDATED_UPDATED_BY_USER_LOGIN = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_BON_COMMANDE_ID = 1L;
+    private static final Long UPDATED_BON_COMMANDE_ID = 2L;
+
     private static final String ENTITY_API_URL = "/api/ot-externes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -105,7 +108,8 @@ class OtExterneResourceIT {
             .createdBy(DEFAULT_CREATED_BY)
             .createdByUserLogin(DEFAULT_CREATED_BY_USER_LOGIN)
             .updatedBy(DEFAULT_UPDATED_BY)
-            .updatedByUserLogin(DEFAULT_UPDATED_BY_USER_LOGIN);
+            .updatedByUserLogin(DEFAULT_UPDATED_BY_USER_LOGIN)
+            .bonCommandeId(DEFAULT_BON_COMMANDE_ID);
         return otExterne;
     }
 
@@ -126,7 +130,8 @@ class OtExterneResourceIT {
             .createdBy(UPDATED_CREATED_BY)
             .createdByUserLogin(UPDATED_CREATED_BY_USER_LOGIN)
             .updatedBy(UPDATED_UPDATED_BY)
-            .updatedByUserLogin(UPDATED_UPDATED_BY_USER_LOGIN);
+            .updatedByUserLogin(UPDATED_UPDATED_BY_USER_LOGIN)
+            .bonCommandeId(UPDATED_BON_COMMANDE_ID);
         return otExterne;
     }
 
@@ -164,6 +169,7 @@ class OtExterneResourceIT {
         assertThat(testOtExterne.getCreatedByUserLogin()).isEqualTo(DEFAULT_CREATED_BY_USER_LOGIN);
         assertThat(testOtExterne.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
         assertThat(testOtExterne.getUpdatedByUserLogin()).isEqualTo(DEFAULT_UPDATED_BY_USER_LOGIN);
+        assertThat(testOtExterne.getBonCommandeId()).isEqualTo(DEFAULT_BON_COMMANDE_ID);
     }
 
     @Test
@@ -257,7 +263,8 @@ class OtExterneResourceIT {
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)))
             .andExpect(jsonPath("$.[*].createdByUserLogin").value(hasItem(DEFAULT_CREATED_BY_USER_LOGIN)))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)))
-            .andExpect(jsonPath("$.[*].updatedByUserLogin").value(hasItem(DEFAULT_UPDATED_BY_USER_LOGIN)));
+            .andExpect(jsonPath("$.[*].updatedByUserLogin").value(hasItem(DEFAULT_UPDATED_BY_USER_LOGIN)))
+            .andExpect(jsonPath("$.[*].bonCommandeId").value(hasItem(DEFAULT_BON_COMMANDE_ID.intValue())));
     }
 
     @Test
@@ -281,7 +288,8 @@ class OtExterneResourceIT {
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY))
             .andExpect(jsonPath("$.createdByUserLogin").value(DEFAULT_CREATED_BY_USER_LOGIN))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY))
-            .andExpect(jsonPath("$.updatedByUserLogin").value(DEFAULT_UPDATED_BY_USER_LOGIN));
+            .andExpect(jsonPath("$.updatedByUserLogin").value(DEFAULT_UPDATED_BY_USER_LOGIN))
+            .andExpect(jsonPath("$.bonCommandeId").value(DEFAULT_BON_COMMANDE_ID.intValue()));
     }
 
     @Test
@@ -313,7 +321,8 @@ class OtExterneResourceIT {
             .createdBy(UPDATED_CREATED_BY)
             .createdByUserLogin(UPDATED_CREATED_BY_USER_LOGIN)
             .updatedBy(UPDATED_UPDATED_BY)
-            .updatedByUserLogin(UPDATED_UPDATED_BY_USER_LOGIN);
+            .updatedByUserLogin(UPDATED_UPDATED_BY_USER_LOGIN)
+            .bonCommandeId(UPDATED_BON_COMMANDE_ID);
         OtExterneDTO otExterneDTO = otExterneMapper.toDto(updatedOtExterne);
 
         restOtExterneMockMvc
@@ -339,6 +348,7 @@ class OtExterneResourceIT {
         assertThat(testOtExterne.getCreatedByUserLogin()).isEqualTo(UPDATED_CREATED_BY_USER_LOGIN);
         assertThat(testOtExterne.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
         assertThat(testOtExterne.getUpdatedByUserLogin()).isEqualTo(UPDATED_UPDATED_BY_USER_LOGIN);
+        assertThat(testOtExterne.getBonCommandeId()).isEqualTo(UPDATED_BON_COMMANDE_ID);
     }
 
     @Test
@@ -425,7 +435,7 @@ class OtExterneResourceIT {
         OtExterne partialUpdatedOtExterne = new OtExterne();
         partialUpdatedOtExterne.setId(otExterne.getId());
 
-        partialUpdatedOtExterne.reference(UPDATED_REFERENCE).updatedBy(UPDATED_UPDATED_BY);
+        partialUpdatedOtExterne.reference(UPDATED_REFERENCE).updatedBy(UPDATED_UPDATED_BY).bonCommandeId(UPDATED_BON_COMMANDE_ID);
 
         restOtExterneMockMvc
             .perform(
@@ -450,6 +460,7 @@ class OtExterneResourceIT {
         assertThat(testOtExterne.getCreatedByUserLogin()).isEqualTo(DEFAULT_CREATED_BY_USER_LOGIN);
         assertThat(testOtExterne.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
         assertThat(testOtExterne.getUpdatedByUserLogin()).isEqualTo(DEFAULT_UPDATED_BY_USER_LOGIN);
+        assertThat(testOtExterne.getBonCommandeId()).isEqualTo(UPDATED_BON_COMMANDE_ID);
     }
 
     @Test
@@ -474,7 +485,8 @@ class OtExterneResourceIT {
             .createdBy(UPDATED_CREATED_BY)
             .createdByUserLogin(UPDATED_CREATED_BY_USER_LOGIN)
             .updatedBy(UPDATED_UPDATED_BY)
-            .updatedByUserLogin(UPDATED_UPDATED_BY_USER_LOGIN);
+            .updatedByUserLogin(UPDATED_UPDATED_BY_USER_LOGIN)
+            .bonCommandeId(UPDATED_BON_COMMANDE_ID);
 
         restOtExterneMockMvc
             .perform(
@@ -499,6 +511,7 @@ class OtExterneResourceIT {
         assertThat(testOtExterne.getCreatedByUserLogin()).isEqualTo(UPDATED_CREATED_BY_USER_LOGIN);
         assertThat(testOtExterne.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);
         assertThat(testOtExterne.getUpdatedByUserLogin()).isEqualTo(UPDATED_UPDATED_BY_USER_LOGIN);
+        assertThat(testOtExterne.getBonCommandeId()).isEqualTo(UPDATED_BON_COMMANDE_ID);
     }
 
     @Test

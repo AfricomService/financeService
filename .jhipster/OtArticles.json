@@ -1,0 +1,31 @@
+{
+  "changelogDate": "20260713125945",
+  "clientRootFolder": "financeService",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "otId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "articleId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "prixPropose",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "dateAffectation",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "financeService",
+  "name": "OtArticles",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

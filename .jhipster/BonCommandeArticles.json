@@ -1,0 +1,35 @@
+{
+  "changelogDate": "20260713130913",
+  "clientRootFolder": "financeService",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "bonCommandeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "articleId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "dateRealisation",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "qteCommande",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qteEffectuee",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "financeService",
+  "name": "BonCommandeArticles",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
