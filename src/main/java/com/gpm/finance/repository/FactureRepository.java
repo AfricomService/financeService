@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FactureRepository extends JpaRepository<Facture, Long> {
     java.util.List<Facture> findByClientId(Long clientId);
+
+    java.util.List<Facture> findByClientIdAndNumFactureContainingIgnoreCase(Long clientId, String numFacture);
+
 }

@@ -121,4 +121,21 @@ public class FactureService {
         log.debug("Request to get Factures by clientId : {}", clientId);
         return factureRepository.findByClientId(clientId).stream().map(factureMapper::toDto).collect(java.util.stream.Collectors.toList());
     }
+
+    /**
+     * Search factures by clientId and numFacture (partial, case-insensitive).
+     *
+     * @param clientId the clientId.
+     * @param numFacture the search term.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public java.util.List<FactureDTO> searchFacturesByClientIdAndNumFacture(Long clientId, String numFacture) {
+        log.debug("Request to search Factures by clientId : {} and numFacture : {}", clientId, numFacture);
+        return factureRepository
+            .findByClientIdAndNumFactureContainingIgnoreCase(clientId, numFacture)
+            .stream()
+            .map(factureMapper::toDto)
+            .collect(java.util.stream.Collectors.toList());
+    }
 }

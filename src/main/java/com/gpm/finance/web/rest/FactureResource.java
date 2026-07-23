@@ -193,4 +193,21 @@ public class FactureResource {
         List<FactureDTO> factures = factureService.findByClientId(clientId);
         return ResponseEntity.ok().body(factures);
     }
+
+    /**
+     * {@code GET  /factures/client/:clientId/search} : search factures by clientId and numFacture.
+     *
+     * @param clientId the clientId to retrieve factures for.
+     * @param numFacture the search term to filter by numFacture.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of matching factures in body.
+     */
+    @GetMapping("/factures/client/{clientId}/search")
+    public ResponseEntity<List<FactureDTO>> searchFacturesByClientId(
+        @PathVariable Long clientId,
+        @RequestParam(required = false, defaultValue = "") String numFacture
+    ) {
+        log.debug("REST request to search Factures by clientId : {} and numFacture : {}", clientId, numFacture);
+        List<FactureDTO> factures = factureService.searchFacturesByClientIdAndNumFacture(clientId, numFacture);
+        return ResponseEntity.ok().body(factures);
+    }
 }
