@@ -64,6 +64,9 @@ public class OtExterne implements Serializable {
     @Column(name = "updated_by_user_login")
     private String updatedByUserLogin;
 
+    @Column(name = "bon_commande_id")
+    private Long bonCommandeId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -209,6 +212,19 @@ public class OtExterne implements Serializable {
         this.updatedByUserLogin = updatedByUserLogin;
     }
 
+    public Long getBonCommandeId() {
+        return this.bonCommandeId;
+    }
+
+    public OtExterne bonCommandeId(Long bonCommandeId) {
+        this.setBonCommandeId(bonCommandeId);
+        return this;
+    }
+
+    public void setBonCommandeId(Long bonCommandeId) {
+        this.bonCommandeId = bonCommandeId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -243,6 +259,7 @@ public class OtExterne implements Serializable {
             ", createdByUserLogin='" + getCreatedByUserLogin() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedByUserLogin='" + getUpdatedByUserLogin() + "'" +
+            ", bonCommandeId=" + getBonCommandeId() +
             "}";
     }
 }
