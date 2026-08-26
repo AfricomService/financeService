@@ -21,6 +21,12 @@ public class OtArticlesDTO implements Serializable {
 
     private ZonedDateTime dateAffectation;
 
+    private Integer qteCommandee;
+
+    private Integer qteRealisee;
+
+    private Long phaseOtId;
+
     public Long getId() {
         return id;
     }
@@ -61,6 +67,30 @@ public class OtArticlesDTO implements Serializable {
         this.dateAffectation = dateAffectation;
     }
 
+    public Integer getQteCommandee() {
+        return qteCommandee;
+    }
+
+    public void setQteCommandee(Integer qteCommandee) {
+        this.qteCommandee = qteCommandee;
+    }
+
+    public Integer getQteRealisee() {
+        return qteRealisee;
+    }
+
+    public void setQteRealisee(Integer qteRealisee) {
+        this.qteRealisee = qteRealisee;
+    }
+
+    public Long getPhaseOtId() {
+        return phaseOtId;
+    }
+
+    public void setPhaseOtId(Long phaseOtId) {
+        this.phaseOtId = phaseOtId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -91,6 +121,9 @@ public class OtArticlesDTO implements Serializable {
             ", articleId=" + getArticleId() +
             ", prixPropose=" + getPrixPropose() +
             ", dateAffectation='" + getDateAffectation() + "'" +
+            ", qteCommandee=" + getQteCommandee() +
+            ", qteRealisee=" + getQteRealisee() +
+            ", phaseOtId=" + getPhaseOtId() +
             "}";
     }
 }

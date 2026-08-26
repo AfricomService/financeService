@@ -36,6 +36,15 @@ public class OtArticles implements Serializable {
     @Column(name = "date_affectation")
     private ZonedDateTime dateAffectation;
 
+    @Column(name = "qte_commandee")
+    private Integer qteCommandee;
+
+    @Column(name = "qte_realisee")
+    private Integer qteRealisee;
+
+    @Column(name = "phase_ot_id")
+    private Long phaseOtId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -103,6 +112,45 @@ public class OtArticles implements Serializable {
         this.dateAffectation = dateAffectation;
     }
 
+    public Integer getQteCommandee() {
+        return this.qteCommandee;
+    }
+
+    public OtArticles qteCommandee(Integer qteCommandee) {
+        this.setQteCommandee(qteCommandee);
+        return this;
+    }
+
+    public void setQteCommandee(Integer qteCommandee) {
+        this.qteCommandee = qteCommandee;
+    }
+
+    public Integer getQteRealisee() {
+        return this.qteRealisee;
+    }
+
+    public OtArticles qteRealisee(Integer qteRealisee) {
+        this.setQteRealisee(qteRealisee);
+        return this;
+    }
+
+    public void setQteRealisee(Integer qteRealisee) {
+        this.qteRealisee = qteRealisee;
+    }
+
+    public Long getPhaseOtId() {
+        return this.phaseOtId;
+    }
+
+    public OtArticles phaseOtId(Long phaseOtId) {
+        this.setPhaseOtId(phaseOtId);
+        return this;
+    }
+
+    public void setPhaseOtId(Long phaseOtId) {
+        this.phaseOtId = phaseOtId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -131,6 +179,9 @@ public class OtArticles implements Serializable {
             ", articleId=" + getArticleId() +
             ", prixPropose=" + getPrixPropose() +
             ", dateAffectation='" + getDateAffectation() + "'" +
+            ", qteCommandee=" + getQteCommandee() +
+            ", qteRealisee=" + getQteRealisee() +
+            ", phaseOtId=" + getPhaseOtId() +
             "}";
     }
 }
