@@ -116,4 +116,52 @@ public class BonCommandeArticlesService {
         log.debug("Request to delete BonCommandeArticles : {}", id);
         bonCommandeArticlesRepository.deleteById(id);
     }
+
+    /**
+     * Get all the articles affectés à un bon de commande donné.
+     *
+     * @param bonCommandeId l'id du bon de commande.
+     * @return la liste des affectations.
+     */
+    @Transactional(readOnly = true)
+    public List<BonCommandeArticlesDTO> findByBonCommandeId(Long bonCommandeId) {
+        log.debug("Request to get BonCommandeArticles by BonCommande : {}", bonCommandeId);
+        return bonCommandeArticlesRepository
+            .findAllByBonCommandeId(bonCommandeId)
+            .stream()
+            .map(bonCommandeArticlesMapper::toDto)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Remplace intégralement les articles affectés à un bon de commande
+     * (supprime les anciennes affectations puis recrée celles fournies).
+     *
+     * @param bonCommandeId l'id du bon de commande.
+     * @param bonCommandeArticlesDTOs la nouvelle liste d'affectations (articleId, qteCommande, qteEffectuee, dateRealisation).
+     * @return la liste des affectations persistées.
+     */
+    public List<BonCommandeArticlesDTO> replaceForBonCommande(Long bonCommandeId, List<BonCommandeArticlesDTO> bonCommandeArticlesDTOs) {
+        log.debug("Request to replace BonCommandeArticles for BonCommande : {}, {}", bonCommandeId, bonCommandeArticlesDTOs);
+
+        bonCommandeArticlesRepository.deleteAllByBonCommandeId(bonCommandeId);
+
+        List<BonCommandeArticles> toSave = bonCommandeArticlesDTOs
+            .stream()
+            .map(dto -> {
+                BonCommandeArticles entity = bonCommandeArticlesMapper.toEntity(dto);
+                // Sécurité : on ignore tout id/bonCommandeId envoyé par le client,
+                // on force la valeur issue de l'URL pour éviter toute manipulation.
+                entity.setId(null);
+                entity.setBonCommandeId(bonCommandeId);
+                return entity;
+            })
+            .collect(Collectors.toList());
+
+        return bonCommandeArticlesRepository
+            .saveAll(toSave)
+            .stream()
+            .map(bonCommandeArticlesMapper::toDto)
+            .collect(Collectors.toList());
+    }
 }

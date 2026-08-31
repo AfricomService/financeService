@@ -1,0 +1,23 @@
+{
+  "microserviceName": "financeService",
+  "clientRootFolder": "financeService",
+  "databaseType": "sql",
+  "fields": [
+    {
+      "fieldName": "bonCommandeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "contactSocieteId",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [],
+  "service": "serviceClass",
+  "dto": "mapstruct",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "no",
+  "name": "BonCommandeAutreResponsable",
+  "changelogDate": "20260828103637"
+}
