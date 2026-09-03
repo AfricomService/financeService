@@ -66,6 +66,17 @@ public class PhaseOtResource {
             .body(result);
     }
 
+    @PatchMapping("/phase-ots/{phaseOtId}/statut")
+    public ResponseEntity<PhaseOtDTO> updateStatut(@PathVariable Long phaseOtId, @RequestParam String statut) {
+        PhaseOtDTO result = phaseOtService.updateStatut(phaseOtId, statut);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/phase-ots/{phaseOtId}/is-parent")
+    public ResponseEntity<Boolean> isParent(@PathVariable Long phaseOtId) {
+        return ResponseEntity.ok(phaseOtService.isParent(phaseOtId));
+    }
+
     /**
      * {@code PUT  /phase-ots/:id} : Updates an existing phaseOt.
      *
@@ -147,6 +158,34 @@ public class PhaseOtResource {
         log.debug("REST request to get a page of PhaseOts");
         Page<PhaseOtDTO> page = phaseOtService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/phase-ots-parent")
+    public ResponseEntity<List<PhaseOtDTO>> getAllPhaseOts(
+        @RequestParam(required = false) Boolean parent,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get a page of PhaseOts, parent: {}", parent);
+
+        Page<PhaseOtDTO> page = phaseOtService.findAll(pageable, parent);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/phase-ots/{id}/children")
+    public ResponseEntity<List<PhaseOtDTO>> getPhaseOtChildren(
+        @PathVariable Long id,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get children of PhaseOt : {}", id);
+
+        Page<PhaseOtDTO> page = phaseOtService.findChildren(id, pageable);
+
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
