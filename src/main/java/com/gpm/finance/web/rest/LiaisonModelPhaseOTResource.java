@@ -12,9 +12,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
 /**
@@ -43,13 +48,10 @@ public class LiaisonModelPhaseOTResource {
         this.liaisonModelPhaseOTRepository = liaisonModelPhaseOTRepository;
     }
 
-    /**
-     * {@code POST  /liaison-model-phase-ots} : Create a new liaisonModelPhaseOT.
-     *
-     * @param liaisonModelPhaseOTDTO the liaisonModelPhaseOTDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new liaisonModelPhaseOTDTO, or with status {@code 400 (Bad Request)} if the liaisonModelPhaseOT has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
+    // ─────────────────────────────────────────────────────────────────
+    // Standard CRUD (unchanged JHipster-generated behaviour)
+    // ─────────────────────────────────────────────────────────────────
+
     @PostMapping("/liaison-model-phase-ots")
     public ResponseEntity<LiaisonModelPhaseOTDTO> createLiaisonModelPhaseOT(@RequestBody LiaisonModelPhaseOTDTO liaisonModelPhaseOTDTO)
         throws URISyntaxException {
@@ -64,16 +66,6 @@ public class LiaisonModelPhaseOTResource {
             .body(result);
     }
 
-    /**
-     * {@code PUT  /liaison-model-phase-ots/:id} : Updates an existing liaisonModelPhaseOT.
-     *
-     * @param id the id of the liaisonModelPhaseOTDTO to save.
-     * @param liaisonModelPhaseOTDTO the liaisonModelPhaseOTDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated liaisonModelPhaseOTDTO,
-     * or with status {@code 400 (Bad Request)} if the liaisonModelPhaseOTDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the liaisonModelPhaseOTDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PutMapping("/liaison-model-phase-ots/{id}")
     public ResponseEntity<LiaisonModelPhaseOTDTO> updateLiaisonModelPhaseOT(
         @PathVariable(value = "id", required = false) final Long id,
@@ -86,7 +78,6 @@ public class LiaisonModelPhaseOTResource {
         if (!Objects.equals(id, liaisonModelPhaseOTDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
-
         if (!liaisonModelPhaseOTRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
@@ -98,17 +89,6 @@ public class LiaisonModelPhaseOTResource {
             .body(result);
     }
 
-    /**
-     * {@code PATCH  /liaison-model-phase-ots/:id} : Partial updates given fields of an existing liaisonModelPhaseOT, field will ignore if it is null
-     *
-     * @param id the id of the liaisonModelPhaseOTDTO to save.
-     * @param liaisonModelPhaseOTDTO the liaisonModelPhaseOTDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated liaisonModelPhaseOTDTO,
-     * or with status {@code 400 (Bad Request)} if the liaisonModelPhaseOTDTO is not valid,
-     * or with status {@code 404 (Not Found)} if the liaisonModelPhaseOTDTO is not found,
-     * or with status {@code 500 (Internal Server Error)} if the liaisonModelPhaseOTDTO couldn't be updated.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
     @PatchMapping(value = "/liaison-model-phase-ots/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<LiaisonModelPhaseOTDTO> partialUpdateLiaisonModelPhaseOT(
         @PathVariable(value = "id", required = false) final Long id,
@@ -121,7 +101,6 @@ public class LiaisonModelPhaseOTResource {
         if (!Objects.equals(id, liaisonModelPhaseOTDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
-
         if (!liaisonModelPhaseOTRepository.existsById(id)) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
@@ -134,23 +113,16 @@ public class LiaisonModelPhaseOTResource {
         );
     }
 
-    /**
-     * {@code GET  /liaison-model-phase-ots} : get all the liaisonModelPhaseOTS.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of liaisonModelPhaseOTS in body.
-     */
     @GetMapping("/liaison-model-phase-ots")
-    public List<LiaisonModelPhaseOTDTO> getAllLiaisonModelPhaseOTS() {
-        log.debug("REST request to get all LiaisonModelPhaseOTS");
-        return liaisonModelPhaseOTService.findAll();
+    public ResponseEntity<List<LiaisonModelPhaseOTDTO>> getAllLiaisonModelPhaseOTS(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get a page of LiaisonModelPhaseOTS");
+        Page<LiaisonModelPhaseOTDTO> page = liaisonModelPhaseOTService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    /**
-     * {@code GET  /liaison-model-phase-ots/:id} : get the "id" liaisonModelPhaseOT.
-     *
-     * @param id the id of the liaisonModelPhaseOTDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the liaisonModelPhaseOTDTO, or with status {@code 404 (Not Found)}.
-     */
     @GetMapping("/liaison-model-phase-ots/{id}")
     public ResponseEntity<LiaisonModelPhaseOTDTO> getLiaisonModelPhaseOT(@PathVariable Long id) {
         log.debug("REST request to get LiaisonModelPhaseOT : {}", id);
@@ -158,12 +130,6 @@ public class LiaisonModelPhaseOTResource {
         return ResponseUtil.wrapOrNotFound(liaisonModelPhaseOTDTO);
     }
 
-    /**
-     * {@code DELETE  /liaison-model-phase-ots/:id} : delete the "id" liaisonModelPhaseOT.
-     *
-     * @param id the id of the liaisonModelPhaseOTDTO to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
     @DeleteMapping("/liaison-model-phase-ots/{id}")
     public ResponseEntity<Void> deleteLiaisonModelPhaseOT(@PathVariable Long id) {
         log.debug("REST request to delete LiaisonModelPhaseOT : {}", id);
@@ -172,5 +138,83 @@ public class LiaisonModelPhaseOTResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // Custom: ordered many-to-many assignment workflow used by the
+    // ModelPhaseOT update page ("Phases associées" section)
+    // ─────────────────────────────────────────────────────────────────
+
+    /**
+     * {@code GET  /liaison-model-phase-ots/by-model/:modelPhaseOtId} : get every PhaseOt
+     * linked to a given ModelPhaseOT, ordered by classement (1st, 2nd, ...).
+     */
+    @GetMapping("/liaison-model-phase-ots/by-model/{modelPhaseOtId}")
+    public List<LiaisonModelPhaseOTDTO> getPhasesForModel(@PathVariable Long modelPhaseOtId) {
+        log.debug("REST request to get LiaisonModelPhaseOTS for model : {}", modelPhaseOtId);
+        return liaisonModelPhaseOTService.findByModelPhaseOtId(modelPhaseOtId);
+    }
+
+    /**
+     * {@code POST  /liaison-model-phase-ots/assign} : link a PhaseOt to a ModelPhaseOT.
+     * The classement is assigned automatically (appended at the end). Rejects duplicates
+     * with a {@code 400 Bad Request}.
+     *
+     * @param liaisonModelPhaseOTDTO only {@code modelPhaseOtId} and {@code phaseId} are read.
+     */
+    @PostMapping("/liaison-model-phase-ots/assign")
+    public ResponseEntity<LiaisonModelPhaseOTDTO> assignPhaseToModel(@RequestBody LiaisonModelPhaseOTDTO liaisonModelPhaseOTDTO)
+        throws URISyntaxException {
+        log.debug(
+            "REST request to assign PhaseOt {} to ModelPhaseOT {}",
+            liaisonModelPhaseOTDTO.getPhaseId(),
+            liaisonModelPhaseOTDTO.getModelPhaseOtId()
+        );
+        if (liaisonModelPhaseOTDTO.getModelPhaseOtId() == null || liaisonModelPhaseOTDTO.getPhaseId() == null) {
+            throw new BadRequestAlertException("modelPhaseOtId and phaseId are required", ENTITY_NAME, "missingfield");
+        }
+
+        LiaisonModelPhaseOTDTO result = liaisonModelPhaseOTService.assign(
+            liaisonModelPhaseOTDTO.getModelPhaseOtId(),
+            liaisonModelPhaseOTDTO.getPhaseId()
+        );
+        return ResponseEntity
+            .created(new URI("/api/liaison-model-phase-ots/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code DELETE  /liaison-model-phase-ots/:id/unassign} : unlink a PhaseOt from its
+     * model and renumber the remaining phases so the classement stays contiguous.
+     */
+    @DeleteMapping("/liaison-model-phase-ots/{id}/unassign")
+    public ResponseEntity<Void> unassignPhase(@PathVariable Long id) {
+        log.debug("REST request to unassign LiaisonModelPhaseOT : {}", id);
+        liaisonModelPhaseOTService.unassign(id);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
+    }
+
+    /**
+     * {@code PUT  /liaison-model-phase-ots/:id/move-up} : swap this phase's classement
+     * with its predecessor. Returns the full, freshly-ordered list for its model.
+     */
+    @PutMapping("/liaison-model-phase-ots/{id}/move-up")
+    public List<LiaisonModelPhaseOTDTO> movePhaseUp(@PathVariable Long id) {
+        log.debug("REST request to move LiaisonModelPhaseOT {} up", id);
+        return liaisonModelPhaseOTService.moveUp(id);
+    }
+
+    /**
+     * {@code PUT  /liaison-model-phase-ots/:id/move-down} : swap this phase's classement
+     * with its successor. Returns the full, freshly-ordered list for its model.
+     */
+    @PutMapping("/liaison-model-phase-ots/{id}/move-down")
+    public List<LiaisonModelPhaseOTDTO> movePhaseDown(@PathVariable Long id) {
+        log.debug("REST request to move LiaisonModelPhaseOT {} down", id);
+        return liaisonModelPhaseOTService.moveDown(id);
     }
 }
