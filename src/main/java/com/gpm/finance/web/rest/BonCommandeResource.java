@@ -143,9 +143,12 @@ public class BonCommandeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bonCommandes in body.
      */
     @GetMapping("/bon-commandes")
-    public ResponseEntity<List<BonCommandeDTO>> getAllBonCommandes(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
-        log.debug("REST request to get a page of BonCommandes");
-        Page<BonCommandeDTO> page = bonCommandeService.findAll(pageable);
+    public ResponseEntity<List<BonCommandeDTO>> getAllBonCommandes(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @RequestParam(required = false) String search
+    ) {
+        log.debug("REST request to get a page of BonCommandes, search={}", search);
+        Page<BonCommandeDTO> page = bonCommandeService.findAll(pageable, search);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
