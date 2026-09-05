@@ -13,7 +13,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bon_commande")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BonCommande implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +52,9 @@ public class BonCommande implements Serializable {
 
     @Column(name = "montant_mission_effectue", precision = 21, scale = 2)
     private BigDecimal montantMissionEffectue;
+
+    @Column(name = "identifiant_unique")
+    private String identifiantUnique;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -199,6 +201,19 @@ public class BonCommande implements Serializable {
         this.montantMissionEffectue = montantMissionEffectue;
     }
 
+    public String getIdentifiantUnique() {
+        return this.identifiantUnique;
+    }
+
+    public BonCommande identifiantUnique(String identifiantUnique) {
+        this.setIdentifiantUnique(identifiantUnique);
+        return this;
+    }
+
+    public void setIdentifiantUnique(String identifiantUnique) {
+        this.identifiantUnique = identifiantUnique;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -233,6 +248,7 @@ public class BonCommande implements Serializable {
             ", montantCommande=" + getMontantCommande() +
             ", montantConsomme=" + getMontantConsomme() +
             ", montantMissionEffectue=" + getMontantMissionEffectue() +
+            ", identifiantUnique='" + getIdentifiantUnique() + "'" +
             "}";
     }
 }

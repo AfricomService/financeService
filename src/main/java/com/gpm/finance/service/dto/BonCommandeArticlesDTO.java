@@ -1,13 +1,13 @@
 package com.gpm.finance.service.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link com.gpm.finance.domain.BonCommandeArticles} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BonCommandeArticlesDTO implements Serializable {
 
     private Long id;
@@ -21,6 +21,8 @@ public class BonCommandeArticlesDTO implements Serializable {
     private Integer qteCommande;
 
     private Integer qteEffectuee;
+
+    private BigDecimal prixArticle;
 
     public Long getId() {
         return id;
@@ -70,6 +72,14 @@ public class BonCommandeArticlesDTO implements Serializable {
         this.qteEffectuee = qteEffectuee;
     }
 
+    public BigDecimal getPrixArticle() {
+        return prixArticle;
+    }
+
+    public void setPrixArticle(BigDecimal prixArticle) {
+        this.prixArticle = prixArticle;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,6 +111,7 @@ public class BonCommandeArticlesDTO implements Serializable {
             ", dateRealisation='" + getDateRealisation() + "'" +
             ", qteCommande=" + getQteCommande() +
             ", qteEffectuee=" + getQteEffectuee() +
+            ", prixArticle=" + getPrixArticle() +
             "}";
     }
 }

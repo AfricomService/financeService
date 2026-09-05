@@ -23,6 +23,10 @@
     {
       "fieldName": "qteEffectuee",
       "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixArticle",
+      "fieldType": "BigDecimal"
     }
   ],
   "jpaMetamodelFiltering": false,

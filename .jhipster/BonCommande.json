@@ -43,6 +43,10 @@
     {
       "fieldName": "montantMissionEffectue",
       "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "identifiantUnique",
+      "fieldType": "String"
     }
   ],
   "jpaMetamodelFiltering": false,

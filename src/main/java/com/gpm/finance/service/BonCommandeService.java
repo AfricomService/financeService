@@ -4,13 +4,18 @@ import com.gpm.finance.domain.BonCommande;
 import com.gpm.finance.repository.BonCommandeRepository;
 import com.gpm.finance.service.dto.BonCommandeDTO;
 import com.gpm.finance.service.mapper.BonCommandeMapper;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import javax.persistence.criteria.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * Service Implementation for managing {@link BonCommande}.
@@ -86,6 +91,34 @@ public class BonCommandeService {
     public Page<BonCommandeDTO> findAll(Pageable pageable) {
         log.debug("Request to get all BonCommandes");
         return bonCommandeRepository.findAll(pageable).map(bonCommandeMapper::toDto);
+    }
+
+    /**
+     * Get all the bonCommandes matching a free-text search (referenceClient, lieu, identifiantUnique).
+     *
+     * @param pageable the pagination information.
+     * @param search the search term (nullable / blank = no filter).
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<BonCommandeDTO> findAll(Pageable pageable, String search) {
+        log.debug("Request to get all BonCommandes matching search : {}", search);
+        return bonCommandeRepository.findAll(buildSearchSpecification(search), pageable).map(bonCommandeMapper::toDto);
+    }
+
+    private Specification<BonCommande> buildSearchSpecification(String search) {
+        if (!StringUtils.hasText(search)) {
+            return null;
+        }
+        String likePattern = "%" + search.trim().toLowerCase() + "%";
+
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(cb.like(cb.lower(root.get("referenceClient")), likePattern));
+            predicates.add(cb.like(cb.lower(root.get("lieu")), likePattern));
+            predicates.add(cb.like(cb.lower(root.get("identifiantUnique")), likePattern));
+            return cb.or(predicates.toArray(new Predicate[0]));
+        };
     }
 
     /**
