@@ -173,4 +173,38 @@ public class BonCommandeArticlesResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code GET  /bon-commande-articles/by-bon-commande/:bonCommandeId} : récupère les articles
+     * affectés à un bon de commande.
+     *
+     * @param bonCommandeId l'id du bon de commande.
+     * @return la liste des affectations (200).
+     */
+    @GetMapping("/bon-commande-articles/by-bon-commande/{bonCommandeId}")
+    public List<BonCommandeArticlesDTO> getBonCommandeArticlesByBonCommande(@PathVariable Long bonCommandeId) {
+        log.debug("REST request to get BonCommandeArticles by BonCommande : {}", bonCommandeId);
+        return bonCommandeArticlesService.findByBonCommandeId(bonCommandeId);
+    }
+
+    /**
+     * {@code PUT  /bon-commande-articles/bon-commande/:bonCommandeId} : remplace la liste des articles
+     * affectés à un bon de commande.
+     *
+     * @param bonCommandeId l'id du bon de commande.
+     * @param bonCommandeArticlesDTOs la nouvelle liste d'affectations.
+     * @return la liste persistée (200).
+     */
+    @PutMapping("/bon-commande-articles/bon-commande/{bonCommandeId}")
+    public ResponseEntity<List<BonCommandeArticlesDTO>> replaceBonCommandeArticles(
+        @PathVariable Long bonCommandeId,
+        @RequestBody List<BonCommandeArticlesDTO> bonCommandeArticlesDTOs
+    ) {
+        log.debug("REST request to replace BonCommandeArticles for BonCommande : {}, {}", bonCommandeId, bonCommandeArticlesDTOs);
+        List<BonCommandeArticlesDTO> result = bonCommandeArticlesService.replaceForBonCommande(bonCommandeId, bonCommandeArticlesDTOs);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, bonCommandeId.toString()))
+            .body(result);
+    }
 }

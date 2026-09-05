@@ -23,6 +23,10 @@
     <include file="config/liquibase/changelog/20260713125945_added_entity_OtArticles.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260713130634_added_entity_BonCommande.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260713130913_added_entity_BonCommandeArticles.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260826083236_added_entity_PhaseOt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260826083602_added_entity_ModelPhaseOT.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260826120902_added_entity_LiaisonModelPhaseOT.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20260828103637_added_entity_BonCommandeAutreResponsable.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20260312131440_added_entity_constraints_ArticleDemandeAchat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260312131840_added_entity_constraints_Devis.xml" relativeToChangelogFile="false"/>

@@ -8,7 +8,6 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.gpm.finance.domain.BonCommande} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BonCommandeDTO implements Serializable {
 
     private Long id;
@@ -32,6 +31,8 @@ public class BonCommandeDTO implements Serializable {
     private BigDecimal montantConsomme;
 
     private BigDecimal montantMissionEffectue;
+
+    private String identifiantUnique;
 
     public Long getId() {
         return id;
@@ -121,6 +122,14 @@ public class BonCommandeDTO implements Serializable {
         this.montantMissionEffectue = montantMissionEffectue;
     }
 
+    public String getIdentifiantUnique() {
+        return identifiantUnique;
+    }
+
+    public void setIdentifiantUnique(String identifiantUnique) {
+        this.identifiantUnique = identifiantUnique;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -157,6 +166,7 @@ public class BonCommandeDTO implements Serializable {
             ", montantCommande=" + getMontantCommande() +
             ", montantConsomme=" + getMontantConsomme() +
             ", montantMissionEffectue=" + getMontantMissionEffectue() +
+            ", identifiantUnique='" + getIdentifiantUnique() + "'" +
             "}";
     }
 }

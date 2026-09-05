@@ -1,0 +1,27 @@
+{
+  "changelogDate": "20260826120902",
+  "clientRootFolder": "financeService",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "modelPhaseOtId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "phaseId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "classementPhase",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "financeService",
+  "name": "LiaisonModelPhaseOT",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

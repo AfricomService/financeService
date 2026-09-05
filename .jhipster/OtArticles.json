@@ -19,6 +19,18 @@
     {
       "fieldName": "dateAffectation",
       "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "qteCommandee",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qteRealisee",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "phaseOtId",
+      "fieldType": "Long"
     }
   ],
   "jpaMetamodelFiltering": false,

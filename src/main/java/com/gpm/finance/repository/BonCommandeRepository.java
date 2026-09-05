@@ -2,6 +2,7 @@ package com.gpm.finance.repository;
 
 import com.gpm.finance.domain.BonCommande;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +10,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface BonCommandeRepository extends JpaRepository<BonCommande, Long> {}
+public interface BonCommandeRepository extends JpaRepository<BonCommande, Long>, JpaSpecificationExecutor<BonCommande> {}
