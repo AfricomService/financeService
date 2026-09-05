@@ -30,6 +30,9 @@
       "OtArticles",
       "BonCommande",
       "BonCommandeArticles",
+      "PhaseOt",
+      "ModelPhaseOT",
+      "LiaisonModelPhaseOT"
       "BonCommandeAutreResponsable"
     ],
     "entitySuffix": "",

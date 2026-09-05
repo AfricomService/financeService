@@ -7,37 +7,24 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
-        Added the entity OtArticles.
+        Added the entity LiaisonModelPhaseOT.
     -->
-    <changeSet id="20260713125945-1" author="jhipster">
-        <createTable tableName="ot_articles">
+    <changeSet id="20260826120902-1" author="jhipster">
+        <createTable tableName="liaison_model_phaseot">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="ot_id" type="bigint">
+            <column name="model_phase_ot_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="article_id" type="bigint">
+            <column name="phase_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="prix_propose" type="decimal(21,2)">
-                <constraints nullable="true" />
-            </column>
-            <column name="date_affectation" type="${datetimeType}">
-                <constraints nullable="true" />
-            </column>
-            <column name="qte_commandee" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="qte_realisee" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="phase_ot_id" type="bigint">
+            <column name="classement_phase" type="integer">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-        <dropDefaultValue tableName="ot_articles" columnName="date_affectation" columnDataType="${datetimeType}"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -50,20 +37,16 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20260713125945-1-data" author="jhipster" context="faker">
+    <changeSet id="20260826120902-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/ot_articles.csv"
+                  file="config/liquibase/fake-data/liaison_model_phaseot.csv"
                   separator=";"
-                  tableName="ot_articles"
+                  tableName="liaison_model_phaseot"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="ot_id" type="numeric"/>
-            <column name="article_id" type="numeric"/>
-            <column name="prix_propose" type="numeric"/>
-            <column name="date_affectation" type="date"/>
-            <column name="qte_commandee" type="numeric"/>
-            <column name="qte_realisee" type="numeric"/>
-            <column name="phase_ot_id" type="numeric"/>
+            <column name="model_phase_ot_id" type="numeric"/>
+            <column name="phase_id" type="numeric"/>
+            <column name="classement_phase" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
