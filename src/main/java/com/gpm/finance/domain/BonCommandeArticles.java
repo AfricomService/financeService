@@ -1,6 +1,7 @@
 package com.gpm.finance.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -12,7 +13,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "bon_commande_articles")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class BonCommandeArticles implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +37,9 @@ public class BonCommandeArticles implements Serializable {
 
     @Column(name = "qte_effectuee")
     private Integer qteEffectuee;
+
+    @Column(name = "prix_article", precision = 21, scale = 2)
+    private BigDecimal prixArticle;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -118,6 +121,19 @@ public class BonCommandeArticles implements Serializable {
         this.qteEffectuee = qteEffectuee;
     }
 
+    public BigDecimal getPrixArticle() {
+        return this.prixArticle;
+    }
+
+    public BonCommandeArticles prixArticle(BigDecimal prixArticle) {
+        this.setPrixArticle(prixArticle);
+        return this;
+    }
+
+    public void setPrixArticle(BigDecimal prixArticle) {
+        this.prixArticle = prixArticle;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -147,6 +163,7 @@ public class BonCommandeArticles implements Serializable {
             ", dateRealisation='" + getDateRealisation() + "'" +
             ", qteCommande=" + getQteCommande() +
             ", qteEffectuee=" + getQteEffectuee() +
+            ", prixArticle=" + getPrixArticle() +
             "}";
     }
 }
