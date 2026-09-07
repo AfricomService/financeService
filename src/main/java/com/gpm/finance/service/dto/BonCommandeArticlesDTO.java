@@ -24,6 +24,8 @@ public class BonCommandeArticlesDTO implements Serializable {
 
     private BigDecimal prixArticle;
 
+    private BigDecimal prixArticleHT;
+
     public Long getId() {
         return id;
     }
@@ -80,6 +82,14 @@ public class BonCommandeArticlesDTO implements Serializable {
         this.prixArticle = prixArticle;
     }
 
+    public BigDecimal getPrixArticleHT() {
+        return prixArticleHT;
+    }
+
+    public void setPrixArticleHT(BigDecimal prixArticleHT) {
+        this.prixArticleHT = prixArticleHT;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -112,6 +122,7 @@ public class BonCommandeArticlesDTO implements Serializable {
             ", qteCommande=" + getQteCommande() +
             ", qteEffectuee=" + getQteEffectuee() +
             ", prixArticle=" + getPrixArticle() +
+            ", prixArticleHT=" + getPrixArticleHT() +
             "}";
     }
 }

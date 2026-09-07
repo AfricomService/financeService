@@ -27,6 +27,10 @@
     {
       "fieldName": "prixArticle",
       "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "prixArticleHT",
+      "fieldType": "BigDecimal"
     }
   ],
   "jpaMetamodelFiltering": false,

@@ -2,6 +2,8 @@ package com.gpm.finance.service;
 
 import com.gpm.finance.domain.BonCommandeArticles;
 import com.gpm.finance.repository.BonCommandeArticlesRepository;
+import com.gpm.finance.security.AuthoritiesConstants;
+import com.gpm.finance.security.SecurityUtils;
 import com.gpm.finance.service.dto.BonCommandeArticlesDTO;
 import com.gpm.finance.service.mapper.BonCommandeArticlesMapper;
 import java.util.LinkedList;
@@ -126,11 +128,26 @@ public class BonCommandeArticlesService {
     @Transactional(readOnly = true)
     public List<BonCommandeArticlesDTO> findByBonCommandeId(Long bonCommandeId) {
         log.debug("Request to get BonCommandeArticles by BonCommande : {}", bonCommandeId);
-        return bonCommandeArticlesRepository
+
+        List<BonCommandeArticlesDTO> result = bonCommandeArticlesRepository
             .findAllByBonCommandeId(bonCommandeId)
             .stream()
             .map(bonCommandeArticlesMapper::toDto)
             .collect(Collectors.toList());
+
+        maskPriceIfNotAllowed(result);
+
+        return result;
+    }
+
+    /**
+     * Masque le prix figé (prixArticle) pour les utilisateurs qui n'ont pas
+     * l'autorité ROLE_CAN_SEE_PRICE.
+     */
+    private void maskPriceIfNotAllowed(List<BonCommandeArticlesDTO> dtos) {
+        if (!SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.CAN_SEE_PRICE)) {
+            dtos.forEach(dto -> dto.setPrixArticle(null));
+        }
     }
 
     /**
