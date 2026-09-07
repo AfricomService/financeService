@@ -41,6 +41,9 @@ public class BonCommandeArticles implements Serializable {
     @Column(name = "prix_article", precision = 21, scale = 2)
     private BigDecimal prixArticle;
 
+    @Column(name = "prix_article_ht", precision = 21, scale = 2)
+    private BigDecimal prixArticleHT;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -134,6 +137,19 @@ public class BonCommandeArticles implements Serializable {
         this.prixArticle = prixArticle;
     }
 
+    public BigDecimal getPrixArticleHT() {
+        return this.prixArticleHT;
+    }
+
+    public BonCommandeArticles prixArticleHT(BigDecimal prixArticleHT) {
+        this.setPrixArticleHT(prixArticleHT);
+        return this;
+    }
+
+    public void setPrixArticleHT(BigDecimal prixArticleHT) {
+        this.prixArticleHT = prixArticleHT;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -164,6 +180,7 @@ public class BonCommandeArticles implements Serializable {
             ", qteCommande=" + getQteCommande() +
             ", qteEffectuee=" + getQteEffectuee() +
             ", prixArticle=" + getPrixArticle() +
+            ", prixArticleHT=" + getPrixArticleHT() +
             "}";
     }
 }
