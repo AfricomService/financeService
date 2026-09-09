@@ -14,4 +14,6 @@ import java.util.List;
 @Repository
 public interface BonCommandeRepository extends JpaRepository<BonCommande, Long>, JpaSpecificationExecutor<BonCommande> {
     List<BonCommande> findByAffaireId(Long affaireId);
+
+    List<BonCommande> findByAffaireIdAndStatus(Long affaireId, String status);
 }

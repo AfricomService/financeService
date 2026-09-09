@@ -44,6 +44,7 @@ public class BonCommandeService {
     public BonCommandeDTO save(BonCommandeDTO bonCommandeDTO) {
         log.debug("Request to save BonCommande : {}", bonCommandeDTO);
         BonCommande bonCommande = bonCommandeMapper.toEntity(bonCommandeDTO);
+        bonCommande.setStatus("ACTIF");
         bonCommande = bonCommandeRepository.save(bonCommande);
         return bonCommandeMapper.toDto(bonCommande);
     }
@@ -82,15 +83,21 @@ public class BonCommandeService {
     }
 
     /**
-     * Get all the bonCommandes.
+     * Get all the bonCommandes for a given affaire, optionnellement filtrées par statut.
      *
-     * @param pageable the pagination information.
+     * @param affaireId the id of the affaire.
+     * @param status le statut à filtrer (nullable / blank = pas de filtre).
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<BonCommandeDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all BonCommandes");
-        return bonCommandeRepository.findAll(pageable).map(bonCommandeMapper::toDto);
+    public List<BonCommandeDTO> findByAffaireId(Long affaireId, String status) {
+        log.debug("Request to get BonCommandes by affaireId : {} and status : {}", affaireId, status);
+
+        List<BonCommande> bonCommandes = StringUtils.hasText(status)
+            ? bonCommandeRepository.findByAffaireIdAndStatus(affaireId, status)
+            : bonCommandeRepository.findByAffaireId(affaireId);
+
+        return bonCommandes.stream().map(bonCommandeMapper::toDto).collect(java.util.stream.Collectors.toList());
     }
 
     /**

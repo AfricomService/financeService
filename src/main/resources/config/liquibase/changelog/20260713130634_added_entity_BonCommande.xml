@@ -47,6 +47,9 @@
             <column name="identifiant_unique" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="bon_commande" columnName="date_bon_commande" columnDataType="${datetimeType}"/>
@@ -80,6 +83,7 @@
             <column name="montant_consomme" type="numeric"/>
             <column name="montant_mission_effectue" type="numeric"/>
             <column name="identifiant_unique" type="string"/>
+            <column name="status" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

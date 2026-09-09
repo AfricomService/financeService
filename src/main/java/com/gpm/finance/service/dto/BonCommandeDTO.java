@@ -34,6 +34,8 @@ public class BonCommandeDTO implements Serializable {
 
     private String identifiantUnique;
 
+    private String status;
+
     public Long getId() {
         return id;
     }
@@ -130,6 +132,14 @@ public class BonCommandeDTO implements Serializable {
         this.identifiantUnique = identifiantUnique;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -167,6 +177,7 @@ public class BonCommandeDTO implements Serializable {
             ", montantConsomme=" + getMontantConsomme() +
             ", montantMissionEffectue=" + getMontantMissionEffectue() +
             ", identifiantUnique='" + getIdentifiantUnique() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

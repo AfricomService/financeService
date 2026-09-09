@@ -154,15 +154,20 @@ public class BonCommandeResource {
     }
 
     /**
-     * {@code GET  /bon-commandes/by-affaire/:affaireId} : get the bonCommandes for the given affaire.
+     * {@code GET  /bon-commandes/by-affaire/:affaireId} : get the bonCommandes for the given affaire,
+     * filtrées optionnellement par statut.
      *
      * @param affaireId the id of the affaire.
+     * @param status le statut à filtrer (optionnel, ex: "ACTIF").
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bonCommandes in body.
      */
     @GetMapping("/bon-commandes/by-affaire/{affaireId}")
-    public List<BonCommandeDTO> getBonCommandesByAffaire(@PathVariable Long affaireId) {
-        log.debug("REST request to get BonCommandes by affaireId : {}", affaireId);
-        return bonCommandeService.findByAffaireId(affaireId);
+    public List<BonCommandeDTO> getBonCommandesByAffaire(
+        @PathVariable Long affaireId,
+        @RequestParam(required = false) String status
+    ) {
+        log.debug("REST request to get BonCommandes by affaireId : {} and status : {}", affaireId, status);
+        return bonCommandeService.findByAffaireId(affaireId, status);
     }
 
     /**
