@@ -1,7 +1,6 @@
 package com.gpm.finance.service.dto;
 
 import com.gpm.finance.domain.enumeration.StatutOtExterne;
-import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -10,7 +9,6 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link com.gpm.finance.domain.OtExterne} entity.
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
 public class OtExterneDTO implements Serializable {
 
     private Long id;
@@ -18,19 +16,17 @@ public class OtExterneDTO implements Serializable {
     @NotNull
     private String reference;
 
-    @NotNull
+
     private StatutOtExterne statut;
 
     /**
      * Cross-service FK → Affaire (projectService)
      */
-    @Schema(description = "Cross-service FK → Affaire (projectService)")
     private Long affaireId;
 
     /**
      * Cross-service FK → Client (projectService)
      */
-    @Schema(description = "Cross-service FK → Client (projectService)")
     private Long clientId;
 
     private ZonedDateTime createdAt;
@@ -46,6 +42,8 @@ public class OtExterneDTO implements Serializable {
     private String updatedByUserLogin;
 
     private Long bonCommandeId;
+
+    private String lieu;
 
     public Long getId() {
         return id;
@@ -143,6 +141,14 @@ public class OtExterneDTO implements Serializable {
         this.bonCommandeId = bonCommandeId;
     }
 
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -180,6 +186,7 @@ public class OtExterneDTO implements Serializable {
             ", updatedBy='" + getUpdatedBy() + "'" +
             ", updatedByUserLogin='" + getUpdatedByUserLogin() + "'" +
             ", bonCommandeId=" + getBonCommandeId() +
+            ", lieu='" + getLieu() + "'" +
             "}";
     }
 }

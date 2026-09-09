@@ -55,6 +55,10 @@
     {
       "fieldName": "bonCommandeId",
       "fieldType": "Long"
+    },
+    {
+      "fieldName": "lieu",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,
