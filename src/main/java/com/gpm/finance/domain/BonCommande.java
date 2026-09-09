@@ -56,6 +56,9 @@ public class BonCommande implements Serializable {
     @Column(name = "identifiant_unique")
     private String identifiantUnique;
 
+    @Column(name = "status")
+    private String status;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -214,6 +217,19 @@ public class BonCommande implements Serializable {
         this.identifiantUnique = identifiantUnique;
     }
 
+    public String getStatus() {
+        return this.status;
+    }
+
+    public BonCommande status(String status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -249,6 +265,7 @@ public class BonCommande implements Serializable {
             ", montantConsomme=" + getMontantConsomme() +
             ", montantMissionEffectue=" + getMontantMissionEffectue() +
             ", identifiantUnique='" + getIdentifiantUnique() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

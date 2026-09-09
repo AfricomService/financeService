@@ -1,9 +1,13 @@
 package com.gpm.finance.service;
 
 import com.gpm.finance.domain.OtExterne;
+import com.gpm.finance.domain.enumeration.StatutOtExterne;
 import com.gpm.finance.repository.OtExterneRepository;
+import com.gpm.finance.security.SecurityUtils;
 import com.gpm.finance.service.dto.OtExterneDTO;
 import com.gpm.finance.service.mapper.OtExterneMapper;
+
+import java.time.Instant;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +43,19 @@ public class OtExterneService {
     public OtExterneDTO save(OtExterneDTO otExterneDTO) {
         log.debug("Request to save OtExterne : {}", otExterneDTO);
         OtExterne otExterne = otExterneMapper.toEntity(otExterneDTO);
+        // Un nouvel OT externe est toujours créé avec le statut ACTIF,
+        // quelle que soit la valeur (ou l'absence de valeur) envoyée par le frontend.
+        otExterne.setStatut(StatutOtExterne.Creation);
+
+        String currentLogin = SecurityUtils.getCurrentUserLogin().orElse("system");
+        Instant now = Instant.now();
+        otExterne.setCreatedAt(now.atZone(java.time.ZoneId.systemDefault()));
+        otExterne.setCreatedBy(currentLogin);
+        otExterne.setCreatedByUserLogin(currentLogin);
+        otExterne.setUpdatedAt(now.atZone(java.time.ZoneId.systemDefault()));
+        otExterne.setUpdatedBy(currentLogin);
+        otExterne.setUpdatedByUserLogin(currentLogin);
+
         otExterne = otExterneRepository.save(otExterne);
         return otExterneMapper.toDto(otExterne);
     }
@@ -52,6 +69,12 @@ public class OtExterneService {
     public OtExterneDTO update(OtExterneDTO otExterneDTO) {
         log.debug("Request to update OtExterne : {}", otExterneDTO);
         OtExterne otExterne = otExterneMapper.toEntity(otExterneDTO);
+
+        String currentLogin = SecurityUtils.getCurrentUserLogin().orElse("system");
+        otExterne.setUpdatedAt(Instant.now().atZone(java.time.ZoneId.systemDefault()));
+        otExterne.setUpdatedBy(currentLogin);
+        otExterne.setUpdatedByUserLogin(currentLogin);
+
         otExterne = otExterneRepository.save(otExterne);
         return otExterneMapper.toDto(otExterne);
     }
@@ -69,6 +92,11 @@ public class OtExterneService {
             .findById(otExterneDTO.getId())
             .map(existingOtExterne -> {
                 otExterneMapper.partialUpdate(existingOtExterne, otExterneDTO);
+
+                String currentLogin = SecurityUtils.getCurrentUserLogin().orElse("system");
+                existingOtExterne.setUpdatedAt(Instant.now().atZone(java.time.ZoneId.systemDefault()));
+                existingOtExterne.setUpdatedBy(currentLogin);
+                existingOtExterne.setUpdatedByUserLogin(currentLogin);
 
                 return existingOtExterne;
             })

@@ -32,8 +32,9 @@
       "BonCommandeArticles",
       "PhaseOt",
       "ModelPhaseOT",
-      "LiaisonModelPhaseOT"
-      "BonCommandeAutreResponsable"
+      "LiaisonModelPhaseOT",
+      "BonCommandeAutreResponsable",
+      "OtExterneAutreResponsable"
     ],
     "entitySuffix": "",
     "gatewayServerPort": "8080",
@@ -42,7 +43,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "ZTY4MGIwYjQzMTc2ZmUyZjkyMjY2NTNmOGU0YTUzN2MzMGM3ODJhMDlkMDhmYTg1ZGEyZDU0NWIxNThlYzVhNWJlY2I3OTE2MTljZjM5NzYzNTE0YWRlYzQzMjk4OTIwMGM0NjNhMmUyNmE0OWVlYzA1MjA4NmQ1ZTJkYzBkY2I=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1787913397000,
+    "lastLiquibaseTimestamp": 1788949422000,
     "messageBroker": false,
     "microfrontend": false,
     "nativeLanguage": "en",
