@@ -154,6 +154,18 @@ public class BonCommandeResource {
     }
 
     /**
+     * {@code GET  /bon-commandes/by-affaire/:affaireId} : get the bonCommandes for the given affaire.
+     *
+     * @param affaireId the id of the affaire.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bonCommandes in body.
+     */
+    @GetMapping("/bon-commandes/by-affaire/{affaireId}")
+    public List<BonCommandeDTO> getBonCommandesByAffaire(@PathVariable Long affaireId) {
+        log.debug("REST request to get BonCommandes by affaireId : {}", affaireId);
+        return bonCommandeService.findByAffaireId(affaireId);
+    }
+
+    /**
      * {@code GET  /bon-commandes/:id} : get the "id" bonCommande.
      *
      * @param id the id of the bonCommandeDTO to retrieve.

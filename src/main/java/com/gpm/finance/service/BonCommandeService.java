@@ -122,6 +122,18 @@ public class BonCommandeService {
     }
 
     /**
+     * Get all the bonCommandes for a given affaire.
+     *
+     * @param affaireId the id of the affaire.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<BonCommandeDTO> findByAffaireId(Long affaireId) {
+        log.debug("Request to get BonCommandes by affaireId : {}", affaireId);
+        return bonCommandeRepository.findByAffaireId(affaireId).stream().map(bonCommandeMapper::toDto).collect(java.util.stream.Collectors.toList());
+    }
+
+    /**
      * Get one bonCommande by id.
      *
      * @param id the id of the entity.

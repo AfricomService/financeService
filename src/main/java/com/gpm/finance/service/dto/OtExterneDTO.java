@@ -45,6 +45,8 @@ public class OtExterneDTO implements Serializable {
 
     private String lieu;
 
+    private Long responsableId;
+
     public Long getId() {
         return id;
     }
@@ -149,6 +151,14 @@ public class OtExterneDTO implements Serializable {
         this.lieu = lieu;
     }
 
+    public Long getResponsableId() {
+        return responsableId;
+    }
+
+    public void setResponsableId(Long responsableId) {
+        this.responsableId = responsableId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -187,6 +197,7 @@ public class OtExterneDTO implements Serializable {
             ", updatedByUserLogin='" + getUpdatedByUserLogin() + "'" +
             ", bonCommandeId=" + getBonCommandeId() +
             ", lieu='" + getLieu() + "'" +
+            ", responsableId=" + getResponsableId() +
             "}";
     }
 }

@@ -69,6 +69,9 @@ public class OtExterne implements Serializable {
     @Column(name = "lieu")
     private String lieu;
 
+    @Column(name = "responsable_id")
+    private Long responsableId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -240,6 +243,19 @@ public class OtExterne implements Serializable {
         this.lieu = lieu;
     }
 
+    public Long getResponsableId() {
+        return this.responsableId;
+    }
+
+    public OtExterne responsableId(Long responsableId) {
+        this.setResponsableId(responsableId);
+        return this;
+    }
+
+    public void setResponsableId(Long responsableId) {
+        this.responsableId = responsableId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -276,6 +292,7 @@ public class OtExterne implements Serializable {
             ", updatedByUserLogin='" + getUpdatedByUserLogin() + "'" +
             ", bonCommandeId=" + getBonCommandeId() +
             ", lieu='" + getLieu() + "'" +
+            ", responsableId=" + getResponsableId() +
             "}";
     }
 }

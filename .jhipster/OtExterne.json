@@ -59,6 +59,10 @@
     {
       "fieldName": "lieu",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "responsableId",
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,
