@@ -103,4 +103,43 @@ public class OtExterneAutreResponsableService {
         log.debug("Request to delete OtExterneAutreResponsable : {}", id);
         otExterneAutreResponsableRepository.deleteById(id);
     }
+
+    /**
+     * Get all otExterneAutreResponsables for a given otExterne.
+     */
+    @Transactional(readOnly = true)
+    public List<OtExterneAutreResponsableDTO> findByOtExterne(Long otExterneId) {
+        log.debug("Request to get all OtExterneAutreResponsables for otExterne : {}", otExterneId);
+        return otExterneAutreResponsableRepository
+            .findByOtExterneId(otExterneId)
+            .stream()
+            .map(otExterneAutreResponsableMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * Replace all otExterneAutreResponsables for a given otExterne
+     * with the provided list of contactSociete ids.
+     */
+    public List<OtExterneAutreResponsableDTO> replaceForOtExterne(Long otExterneId, List<Long> contactSocieteIds) {
+        log.debug("Request to replace OtExterneAutreResponsables for otExterne {} with {}", otExterneId, contactSocieteIds);
+
+        otExterneAutreResponsableRepository.deleteByOtExterneId(otExterneId);
+
+        List<OtExterneAutreResponsable> newLinks = contactSocieteIds
+            .stream()
+            .map(contactId -> {
+                OtExterneAutreResponsable link = new OtExterneAutreResponsable();
+                link.setOtExterneId(otExterneId);
+                link.setContactSocieteId(contactId);
+                return link;
+            })
+            .collect(Collectors.toList());
+
+        return otExterneAutreResponsableRepository
+            .saveAll(newLinks)
+            .stream()
+            .map(otExterneAutreResponsableMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 }
