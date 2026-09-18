@@ -176,4 +176,27 @@ public class OtExterneAutreResponsableResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code GET  /ot-externe-autre-responsables/by-ot-externe/:otExterneId} :
+     * get all otExterneAutreResponsables for a given otExterne.
+     */
+    @GetMapping("/ot-externe-autre-responsables/by-ot-externe/{otExterneId}")
+    public List<OtExterneAutreResponsableDTO> getAllOtExterneAutreResponsablesByOtExterne(@PathVariable Long otExterneId) {
+        log.debug("REST request to get all OtExterneAutreResponsables for otExterne : {}", otExterneId);
+        return otExterneAutreResponsableService.findByOtExterne(otExterneId);
+    }
+
+    /**
+     * {@code PUT  /ot-externe-autre-responsables/by-ot-externe/:otExterneId} :
+     * replace all otExterneAutreResponsables for a given otExterne.
+     */
+    @PutMapping("/ot-externe-autre-responsables/by-ot-externe/{otExterneId}")
+    public List<OtExterneAutreResponsableDTO> replaceOtExterneAutreResponsablesForOtExterne(
+        @PathVariable Long otExterneId,
+        @RequestBody List<Long> contactSocieteIds
+    ) {
+        log.debug("REST request to replace OtExterneAutreResponsables for otExterne {} with {}", otExterneId, contactSocieteIds);
+        return otExterneAutreResponsableService.replaceForOtExterne(otExterneId, contactSocieteIds);
+    }
 }
