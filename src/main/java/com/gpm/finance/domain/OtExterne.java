@@ -14,6 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "ot_externe")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class OtExterne implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,6 +72,9 @@ public class OtExterne implements Serializable {
 
     @Column(name = "responsable_id")
     private Long responsableId;
+
+    @Column(name = "modele_ot_id")
+    private Long modeleOtId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -256,6 +260,19 @@ public class OtExterne implements Serializable {
         this.responsableId = responsableId;
     }
 
+    public Long getModeleOtId() {
+        return this.modeleOtId;
+    }
+
+    public OtExterne modeleOtId(Long modeleOtId) {
+        this.setModeleOtId(modeleOtId);
+        return this;
+    }
+
+    public void setModeleOtId(Long modeleOtId) {
+        this.modeleOtId = modeleOtId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -293,6 +310,7 @@ public class OtExterne implements Serializable {
             ", bonCommandeId=" + getBonCommandeId() +
             ", lieu='" + getLieu() + "'" +
             ", responsableId=" + getResponsableId() +
+            ", modeleOtId=" + getModeleOtId() +
             "}";
     }
 }

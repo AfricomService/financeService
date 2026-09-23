@@ -1,11 +1,11 @@
-id;reference;statut;affaire_id;client_id;created_at;updated_at;created_by;created_by_user_login;updated_by;updated_by_user_login;bon_commande_id;lieu;responsable_id
-1;Avon copy;Fin;33094;24446;2026-03-12T10:51:09;2026-03-11T14:47:43;infrastructures;Metal Grocery Shoes;Tasty;Alabama paradigms compressing;95045;protocol;44122
-2;vertical Clothing;EnCours;63548;4461;2026-03-12T11:08:26;2026-03-11T15:12:40;up viral Union;Car Malta Card;Stand-alone Architect;deposit;54379;set;52467
-3;holistic Usability;Creation;34827;7137;2026-03-11T14:15:43;2026-03-11T21:19:28;virtual Bedfordshire;Borders;maroon;directional;11783;recontextualize Forward open-source;38297
-4;Account gold;Creation;33416;81623;2026-03-12T01:29:00;2026-03-12T08:46:19;Shores;mindshare;Coves reinvent Clothing;1080p;19779;Avon Customizable connecting;54650
-5;magenta;Creation;86691;45152;2026-03-12T13:08:07;2026-03-12T08:05:25;Electronics panel Danish;innovate Loop Tuna;Soft Comoros digital;Garden connect;89873;XML;69673
-6;back-end Metrics deliver;Paiement;66679;95315;2026-03-12T10:11:30;2026-03-12T01:25:54;Chair payment up;Puerto;Gorgeous;viral;74727;Practical grow;54860
-7;Engineer XSS Berkshire;Creation;19440;89969;2026-03-11T17:08:35;2026-03-12T08:14:47;Account tangible Keyboard;Missouri GB Convertible;parse empower transmitting;grey Associate;52757;Plastic Ergonomic;80305
-8;Chief policy;EnCours;29448;60445;2026-03-12T12:13:53;2026-03-11T20:23:33;Intranet leading infrastructures;cross-platform Investor lavender;Cote parsing;users redundant Oval;1550;Maine;45194
-9;Legacy capacitor;EnCours;46776;54832;2026-03-12T08:30:28;2026-03-12T03:30:53;parallelism Home copying;platforms Salad Oklahoma;convergence Rubber;Gorgeous;92528;Movies;48184
-10;Monitored panel monitor;EnCours;67449;62100;2026-03-11T14:17:38;2026-03-12T03:19:40;focus niches;ability;generating;blue programming;15424;De-engineered;55089
+id;reference;statut;affaire_id;client_id;created_at;updated_at;created_by;created_by_user_login;updated_by;updated_by_user_login;bon_commande_id;lieu;responsable_id;modele_ot_id
+1;Avon copy;Fin;33094;24446;2026-03-12T10:51:09;2026-03-11T14:47:43;infrastructures;Metal Grocery Shoes;Tasty;Alabama paradigms compressing;95045;protocol;44122;43011
+2;Chicken expedite;Creation;92360;68829;2026-03-11T17:21:04;2026-03-12T12:13:15;viral Union Officer;Malta Card deposit;Architect;deposit;54379;set;52467;46053
+3;Haven;Fin;33881;11387;2026-03-12T05:01:08;2026-03-12T11:39:52;Denar implementation Polarised;Alaska maroon;directional;AI;783;open-source Hryvnia Borders;74583;20992
+4;Implementation indexing hierarchy;Paiement;2315;43817;2026-03-11T19:57:13;2026-03-12T08:29:53;Coves reinvent Clothing;1080p;connect;Customizable connecting Ethiopia;67803;Refined Electronics;399;20395
+5;panel;Paiement;21347;6028;2026-03-11T19:35:07;2026-03-12T03:45:06;Applications up reintermediate;Soft Comoros digital;Garden connect;Fresh Handcrafted state;94369;Poland Platinum;49774;74148
+6;Grocery;Paiement;59716;74689;2026-03-12T12:11:54;2026-03-11T21:31:00;Puerto;Gorgeous;viral;Aruba action-items grow;54860;Engineer XSS Berkshire;3102;19440
+7;overriding Account tangible;Creation;91292;12317;2026-03-12T09:43:20;2026-03-11T13:31:43;Missouri GB Convertible;parse empower transmitting;grey Associate;platforms optimize;51290;Islands monetize Health;60445;4775
+8;parse Rubber Steel;Fin;36781;69511;2026-03-11T15:28:15;2026-03-11T23:07:13;lavender Mountain Streamlined;navigating Cheese hub;Computers;RSS Legacy;71544;supply-chains Cook copy;42915;1026
+9;Fresh;Paiement;94524;44181;2026-03-12T09:41:19;2026-03-11T21:42:42;Territory;Oklahoma Lane enable;approach;Corporate Sleek niches;13825;monitor;27466;67449
+10;Group focus;EnCours;38091;27809;2026-03-12T06:57:38;2026-03-12T05:37:58;Wooden;Hills Handmade;hacking De-engineered French;sensor;93357;Tenge Director;9454;81044
