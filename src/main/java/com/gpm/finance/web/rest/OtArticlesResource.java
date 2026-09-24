@@ -47,6 +47,13 @@ public class OtArticlesResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new otArticlesDTO, or with status {@code 400 (Bad Request)} if the otArticles has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+    @GetMapping("/ot-articles/by-ot/{otId}")
+    public List<OtArticlesDTO> getOtArticlesByOt(@PathVariable Long otId) {
+        log.debug("REST request to get OtArticles for otId : {}", otId);
+        return otArticlesService.findAllByOtId(otId);
+    }
+
     @PostMapping("/ot-articles")
     public ResponseEntity<OtArticlesDTO> createOtArticles(@RequestBody OtArticlesDTO otArticlesDTO) throws URISyntaxException {
         log.debug("REST request to save OtArticles : {}", otArticlesDTO);

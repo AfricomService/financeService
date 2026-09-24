@@ -63,6 +63,10 @@
     {
       "fieldName": "responsableId",
       "fieldType": "Long"
+    },
+    {
+      "fieldName": "modeleOtId",
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,
