@@ -31,6 +31,12 @@ public class OtArticlesService {
         this.otArticlesMapper = otArticlesMapper;
     }
 
+    @Transactional(readOnly = true)
+    public List<OtArticlesDTO> findAllByOtId(Long otId) {
+        log.debug("Request to get OtArticles for otId : {}", otId);
+        return otArticlesRepository.findAllByOtId(otId).stream().map(otArticlesMapper::toDto).collect(Collectors.toList());
+    }
+
     /**
      * Save a otArticles.
      *

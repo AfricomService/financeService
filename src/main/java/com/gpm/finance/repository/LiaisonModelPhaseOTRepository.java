@@ -33,4 +33,6 @@ public interface LiaisonModelPhaseOTRepository extends JpaRepository<LiaisonMode
     Optional<LiaisonModelPhaseOT> findByModelPhaseOtIdAndClassementPhase(Long modelPhaseOtId, Integer classementPhase);
 
     long countByModelPhaseOtId(Long modelPhaseOtId);
+
+    List<LiaisonModelPhaseOT> findAllByModelPhaseOtIdOrderByClassementPhaseAsc(Long modelPhaseOtId);
 }

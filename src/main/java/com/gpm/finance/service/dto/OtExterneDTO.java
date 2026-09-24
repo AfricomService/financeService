@@ -16,7 +16,6 @@ public class OtExterneDTO implements Serializable {
     @NotNull
     private String reference;
 
-
     private StatutOtExterne statut;
 
     /**
@@ -46,6 +45,15 @@ public class OtExterneDTO implements Serializable {
     private String lieu;
 
     private Long responsableId;
+    private Long modeleOtId;
+
+    public Long getModeleOtId() {
+        return modeleOtId;
+    }
+
+    public void setModeleOtId(Long modeleOtId) {
+        this.modeleOtId = modeleOtId;
+    }
 
     public Long getId() {
         return id;

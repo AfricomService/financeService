@@ -3,6 +3,7 @@ package com.gpm.finance.web.rest;
 import com.gpm.finance.repository.ModelPhaseOTRepository;
 import com.gpm.finance.service.ModelPhaseOTService;
 import com.gpm.finance.service.dto.ModelPhaseOTDTO;
+import com.gpm.finance.service.dto.PhaseOtDTO;
 import com.gpm.finance.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -177,5 +178,12 @@ public class ModelPhaseOTResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/model-phase-ots/{id}/phases")
+    public ResponseEntity<List<PhaseOtDTO>> getModelPhaseOTPhases(@PathVariable Long id) {
+        log.debug("REST request to get ordered phases for ModelPhaseOT : {}", id);
+        List<PhaseOtDTO> phases = modelPhaseOTService.findPhasesByModelId(id);
+        return ResponseEntity.ok(phases);
     }
 }
