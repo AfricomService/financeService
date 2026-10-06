@@ -29,6 +29,7 @@
     <include file="config/liquibase/changelog/20260828103637_added_entity_BonCommandeAutreResponsable.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260909102342_added_entity_OtExterneAutreResponsable.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20261006141204_added_entity_AclEntry.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20261006141436_added_entity_AclSid.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20260312131440_added_entity_constraints_ArticleDemandeAchat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20260312131840_added_entity_constraints_Devis.xml" relativeToChangelogFile="false"/>
