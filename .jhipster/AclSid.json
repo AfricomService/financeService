@@ -1,0 +1,29 @@
+{
+  "changelogDate": "20261006141436",
+  "clientRootFolder": "financeService",
+  "databaseType": "sql",
+  "fields": [
+    {
+      "fieldName": "sidType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sidValue",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sidKey",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomDescriptif",
+      "fieldType": "String"
+    }
+  ],
+  "microserviceName": "financeService",
+  "name": "AclSid",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

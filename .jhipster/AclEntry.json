@@ -1,0 +1,33 @@
+{
+  "changelogDate": "20261006141204",
+  "clientRootFolder": "financeService",
+  "databaseType": "sql",
+  "fields": [
+    {
+      "fieldName": "objectType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "sidId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "canRead",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "canWrite",
+      "fieldType": "Boolean"
+    }
+  ],
+  "microserviceName": "financeService",
+  "name": "AclEntry",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}
