@@ -8,4 +8,8 @@ import org.mapstruct.*;
  * Mapper for the entity {@link BonCommande} and its DTO {@link BonCommandeDTO}.
  */
 @Mapper(componentModel = "spring")
-public interface BonCommandeMapper extends EntityMapper<BonCommandeDTO, BonCommande> {}
+public interface BonCommandeMapper extends EntityMapper<BonCommandeDTO, BonCommande> {
+    @Mapping(target = "canRead", ignore = true)
+    @Mapping(target = "canWrite", ignore = true)
+    BonCommandeDTO toDto(BonCommande bonCommande);
+}
