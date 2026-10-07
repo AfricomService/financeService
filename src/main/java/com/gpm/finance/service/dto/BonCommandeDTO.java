@@ -35,6 +35,24 @@ public class BonCommandeDTO implements Serializable {
     private String identifiantUnique;
 
     private String status;
+    private boolean canWrite;
+    private boolean canRead;
+
+    public boolean isCanWrite() {
+        return canWrite;
+    }
+
+    public void setCanWrite(boolean canWrite) {
+        this.canWrite = canWrite;
+    }
+
+    public boolean isCanRead() {
+        return canRead;
+    }
+
+    public void setCanRead(boolean canRead) {
+        this.canRead = canRead;
+    }
 
     public Long getId() {
         return id;

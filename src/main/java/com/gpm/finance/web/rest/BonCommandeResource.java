@@ -162,10 +162,7 @@ public class BonCommandeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bonCommandes in body.
      */
     @GetMapping("/bon-commandes/by-affaire/{affaireId}")
-    public List<BonCommandeDTO> getBonCommandesByAffaire(
-        @PathVariable Long affaireId,
-        @RequestParam(required = false) String status
-    ) {
+    public List<BonCommandeDTO> getBonCommandesByAffaire(@PathVariable Long affaireId, @RequestParam(required = false) String status) {
         log.debug("REST request to get BonCommandes by affaireId : {} and status : {}", affaireId, status);
         return bonCommandeService.findByAffaireId(affaireId, status);
     }
@@ -197,5 +194,11 @@ public class BonCommandeResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PatchMapping("/bon-commandes/{bonCommandeId}/statut")
+    public ResponseEntity<Void> changeStatut(@PathVariable Long bonCommandeId, @RequestParam String statut) {
+        bonCommandeService.changeStatut(statut, bonCommandeId);
+        return ResponseEntity.ok().build();
     }
 }
