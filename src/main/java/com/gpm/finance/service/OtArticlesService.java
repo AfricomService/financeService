@@ -1,9 +1,11 @@
 package com.gpm.finance.service;
 
+import com.gpm.finance.client.UserContactRestClient;
 import com.gpm.finance.domain.OtArticles;
 import com.gpm.finance.repository.OtArticlesRepository;
 import com.gpm.finance.service.dto.OtArticlesDTO;
 import com.gpm.finance.service.mapper.OtArticlesMapper;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +28,16 @@ public class OtArticlesService {
 
     private final OtArticlesMapper otArticlesMapper;
 
-    public OtArticlesService(OtArticlesRepository otArticlesRepository, OtArticlesMapper otArticlesMapper) {
+    private final UserContactRestClient userContactRestClient;
+
+    public OtArticlesService(
+        OtArticlesRepository otArticlesRepository,
+        OtArticlesMapper otArticlesMapper,
+        UserContactRestClient userContactRestClient
+    ) {
         this.otArticlesRepository = otArticlesRepository;
         this.otArticlesMapper = otArticlesMapper;
+        this.userContactRestClient = userContactRestClient;
     }
 
     @Transactional(readOnly = true)
@@ -45,6 +54,10 @@ public class OtArticlesService {
      */
     public OtArticlesDTO save(OtArticlesDTO otArticlesDTO) {
         log.debug("Request to save OtArticles : {}", otArticlesDTO);
+
+        BigDecimal articlePrice = userContactRestClient.getArticlePrice(otArticlesDTO.getArticleId());
+        otArticlesDTO.setPrixPropose(articlePrice);
+
         OtArticles otArticles = otArticlesMapper.toEntity(otArticlesDTO);
         otArticles = otArticlesRepository.save(otArticles);
         return otArticlesMapper.toDto(otArticles);

@@ -8,4 +8,8 @@ import org.mapstruct.*;
  * Mapper for the entity {@link OtExterne} and its DTO {@link OtExterneDTO}.
  */
 @Mapper(componentModel = "spring")
-public interface OtExterneMapper extends EntityMapper<OtExterneDTO, OtExterne> {}
+public interface OtExterneMapper extends EntityMapper<OtExterneDTO, OtExterne> {
+    @Mapping(target = "canRead", ignore = true)
+    @Mapping(target = "canWrite", ignore = true)
+    OtExterneDTO toDto(OtExterne otExterne);
+}

@@ -41,8 +41,8 @@ class OtExterneResourceIT {
     private static final String DEFAULT_REFERENCE = "AAAAAAAAAA";
     private static final String UPDATED_REFERENCE = "BBBBBBBBBB";
 
-    private static final StatutOtExterne DEFAULT_STATUT = StatutOtExterne.Creation;
-    private static final StatutOtExterne UPDATED_STATUT = StatutOtExterne.EnCours;
+    private static final StatutOtExterne DEFAULT_STATUT = StatutOtExterne.Brouillon;
+    private static final StatutOtExterne UPDATED_STATUT = StatutOtExterne.ExecutionDesTravaux;
 
     private static final Long DEFAULT_AFFAIRE_ID = 1L;
     private static final Long UPDATED_AFFAIRE_ID = 2L;
