@@ -47,6 +47,25 @@ public class OtExterneDTO implements Serializable {
     private Long responsableId;
     private Long modeleOtId;
 
+    private boolean canWrite;
+    private boolean canRead;
+
+    public boolean isCanWrite() {
+        return canWrite;
+    }
+
+    public void setCanWrite(boolean canWrite) {
+        this.canWrite = canWrite;
+    }
+
+    public boolean isCanRead() {
+        return canRead;
+    }
+
+    public void setCanRead(boolean canRead) {
+        this.canRead = canRead;
+    }
+
     public Long getModeleOtId() {
         return modeleOtId;
     }

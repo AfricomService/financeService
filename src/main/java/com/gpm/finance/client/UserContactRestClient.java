@@ -1,5 +1,6 @@
 package com.gpm.finance.client;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +19,11 @@ public interface UserContactRestClient {
     @GetMapping("/api/matricule/{contactSocieteId}")
     String getMatriculeByContactSocieteId(@PathVariable("contactSocieteId") Long contactSocieteId);
 
-    @GetMapping("/api//clients-code/{id}")
+    @GetMapping("/api/clients-code/{id}")
     String getClientCode(@PathVariable("id") Long id);
+
+    @GetMapping("/api/articles-price/{id}")
+    BigDecimal getArticlePrice(@PathVariable("id") Long id);
 
     @PostMapping("/api/matricules")
     List<String> getMatriculesByContactSocieteIds(@RequestBody List<Long> contactSocieteIds);

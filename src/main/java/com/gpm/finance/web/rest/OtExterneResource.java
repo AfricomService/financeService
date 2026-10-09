@@ -180,4 +180,10 @@ public class OtExterneResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @PatchMapping("/ot-externes/{otExterneId}/statut")
+    public ResponseEntity<Void> changeStatut(@PathVariable Long otExterneId, @RequestParam String statut) {
+        otExterneService.changeStatut(statut, otExterneId);
+        return ResponseEntity.ok().build();
+    }
 }
