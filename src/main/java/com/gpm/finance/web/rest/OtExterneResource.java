@@ -153,6 +153,21 @@ public class OtExterneResource {
     }
 
     /**
+     * {@code GET  /ot-externes/by-modele/:modeleOtId} : OT externes d'un modèle de phases (ModelPhaseOT).
+     */
+    @GetMapping("/ot-externes/by-modele/{modeleOtId}")
+    public ResponseEntity<List<OtExterneDTO>> getOtExternesByModele(
+        @PathVariable Long modeleOtId,
+        @RequestParam(value = "search", required = false, defaultValue = "") String search,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get OtExternes by modeleOtId : {}", modeleOtId);
+        Page<OtExterneDTO> page = otExterneService.findByModeleOt(modeleOtId, search, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /ot-externes/:id} : get the "id" otExterne.
      *
      * @param id the id of the otExterneDTO to retrieve.

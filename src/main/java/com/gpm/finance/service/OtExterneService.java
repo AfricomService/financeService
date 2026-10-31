@@ -194,6 +194,27 @@ public class OtExterneService {
     }
 
     /**
+     * Get the otExternes of a given ModelPhaseOT (modeleOtId), filtered by reference, with ACL.
+     */
+    @Transactional(readOnly = true)
+    public Page<OtExterneDTO> findByModeleOt(Long modeleOtId, String search, Pageable pageable) {
+        log.debug("Request to get OtExternes by modeleOtId : {}", modeleOtId);
+        String term = search == null ? "" : search.trim();
+
+        if (SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
+            return otExterneRepository.findByModeleOtIdAndSearch(modeleOtId, term, pageable).map(otExterneMapper::toDto);
+        }
+
+        List<Long> sidIds = aclUtilService.getCurrentUserSids().stream().map(AclSid::getId).collect(Collectors.toList());
+        if (sidIds.isEmpty()) {
+            return Page.empty(pageable);
+        }
+        return otExterneRepository
+            .findAccessibleByModeleOtIdAndSearch(modeleOtId, term, sidIds, pageable)
+            .map(otExterneMapper::toDto);
+    }
+
+    /**
      * Get one otExterne by id.
      *
      * @param id the id of the entity.

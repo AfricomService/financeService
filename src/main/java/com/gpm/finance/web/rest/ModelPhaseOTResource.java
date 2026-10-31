@@ -180,6 +180,15 @@ public class ModelPhaseOTResource {
             .build();
     }
 
+    /**
+     * {@code GET  /model-phase-ots/all} : get all the modelPhaseOTS without pagination.
+     */
+    @GetMapping("/model-phase-ots/all")
+    public ResponseEntity<List<ModelPhaseOTDTO>> getAllModelPhaseOTSList() {
+        log.debug("REST request to get all ModelPhaseOTS (no pagination)");
+        return ResponseEntity.ok(modelPhaseOTService.findAllList());
+    }
+
     @GetMapping("/model-phase-ots/{id}/phases")
     public ResponseEntity<List<PhaseOtDTO>> getModelPhaseOTPhases(@PathVariable Long id) {
         log.debug("REST request to get ordered phases for ModelPhaseOT : {}", id);
