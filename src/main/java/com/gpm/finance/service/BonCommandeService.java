@@ -27,6 +27,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import com.gpm.finance.repository.OtExterneRepository;
 
 /**
  * Service Implementation for managing {@link BonCommande}.
@@ -49,18 +50,22 @@ public class BonCommandeService {
 
     private final BonCommandeAutreResponsableRepository bonCommandeAutreResponsableRepository;
 
+    private final OtExterneRepository otExterneRepository;
+
     public BonCommandeService(
         BonCommandeRepository bonCommandeRepository,
         BonCommandeMapper bonCommandeMapper,
         AclUtilService aclUtilService,
         UserContactRestClient userContactRestClient,
-        BonCommandeAutreResponsableRepository bonCommandeAutreResponsableRepository
+        BonCommandeAutreResponsableRepository bonCommandeAutreResponsableRepository,
+        OtExterneRepository otExterneRepository
     ) {
         this.bonCommandeRepository = bonCommandeRepository;
         this.bonCommandeMapper = bonCommandeMapper;
         this.aclUtilService = aclUtilService;
         this.userContactRestClient = userContactRestClient;
         this.bonCommandeAutreResponsableRepository = bonCommandeAutreResponsableRepository;
+        this.otExterneRepository = otExterneRepository;
     }
 
     /**
@@ -187,19 +192,20 @@ public class BonCommandeService {
 
     @Transactional(readOnly = true)
     public Page<BonCommandeDTO> findAll(Pageable pageable, String search) {
-        log.debug("Request to get all Affaires");
+        log.debug("Request to get all BonCommandes, search={}", search);
+        String term = search == null ? "" : search.trim();
 
         // << ACL : bypass admin
         if (SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
-            return bonCommandeRepository.findAll(pageable).map(bonCommandeMapper::toDto);
+            return bonCommandeRepository.findAllBySearch(term, pageable).map(bonCommandeMapper::toDto);
         }
 
-        // << ACL : seulement les affaires accessibles (filtrage en base, pagination préservée)
+        // << ACL : seulement les bons de commande accessibles (filtrage en base, pagination préservée)
         List<Long> sidIds = aclUtilService.getCurrentUserSids().stream().map(AclSid::getId).collect(Collectors.toList());
         if (sidIds.isEmpty()) {
             return Page.empty(pageable);
         }
-        return bonCommandeRepository.findAllAccessible(sidIds, pageable).map(bonCommandeMapper::toDto);
+        return bonCommandeRepository.findAccessibleBySearch(sidIds, term, pageable).map(bonCommandeMapper::toDto);
     }
 
     private Specification<BonCommande> buildSearchSpecification(String search) {
@@ -231,6 +237,23 @@ public class BonCommandeService {
             .stream()
             .map(bonCommandeMapper::toDto)
             .collect(java.util.stream.Collectors.toList());
+    }
+
+    /**
+     * Get the bonCommande linked to a given otExterne (via OtExterne.bonCommandeId).
+     *
+     * @param otExterneId the id of the otExterne.
+     * @return the linked bonCommande, or empty if the otExterne does not exist or has no bonCommande.
+     */
+    @Transactional(readOnly = true)
+    public Optional<BonCommandeDTO> findByOtExterneId(Long otExterneId) {
+        log.debug("Request to get BonCommande by otExterneId : {}", otExterneId);
+        return otExterneRepository
+            .findById(otExterneId)
+            .map(otExterne -> otExterne.getBonCommandeId())
+            .flatMap(bonCommandeRepository::findById)
+            .map(bonCommandeMapper::toDto)
+            .map(this::withPermissions);
     }
 
     /**

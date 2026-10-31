@@ -131,6 +131,17 @@ public class ModelPhaseOTService {
         modelPhaseOTRepository.deleteById(id);
     }
 
+    /**
+     * Get all the modelPhaseOTS without pagination (used by dropdown lists).
+     *
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<ModelPhaseOTDTO> findAllList() {
+        log.debug("Request to get all ModelPhaseOTS (no pagination)");
+        return modelPhaseOTRepository.findAll().stream().map(modelPhaseOTMapper::toDto).collect(Collectors.toList());
+    }
+
     @Transactional(readOnly = true)
     public List<PhaseOtDTO> findPhasesByModelId(Long modelPhaseOtId) {
         log.debug("Request to get ordered PhaseOts for ModelPhaseOT : {}", modelPhaseOtId);

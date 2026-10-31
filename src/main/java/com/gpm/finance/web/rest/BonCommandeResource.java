@@ -168,6 +168,18 @@ public class BonCommandeResource {
     }
 
     /**
+     * {@code GET  /bon-commandes/by-ot-externe/:otExterneId} : get the bonCommande linked to the given otExterne.
+     *
+     * @param otExterneId the id of the otExterne.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the bonCommandeDTO, or {@code 404 (Not Found)}.
+     */
+    @GetMapping("/bon-commandes/by-ot-externe/{otExterneId}")
+    public ResponseEntity<BonCommandeDTO> getBonCommandeByOtExterne(@PathVariable Long otExterneId) {
+        log.debug("REST request to get BonCommande by otExterneId : {}", otExterneId);
+        return ResponseUtil.wrapOrNotFound(bonCommandeService.findByOtExterneId(otExterneId));
+    }
+
+    /**
      * {@code GET  /bon-commandes/:id} : get the "id" bonCommande.
      *
      * @param id the id of the bonCommandeDTO to retrieve.

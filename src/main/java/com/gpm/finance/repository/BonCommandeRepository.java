@@ -26,4 +26,29 @@ public interface BonCommandeRepository extends JpaRepository<BonCommande, Long>,
         ")"
     )
     Page<BonCommande> findAllAccessible(@Param("sidIds") List<Long> sidIds, Pageable pageable);
+
+    // ADMIN : tous les bons de commande, filtrés par identifiant / référence client / lieu
+    @Query(
+        "select b from BonCommande b where (:search = '' " +
+            "or lower(b.identifiantUnique) like lower(concat('%', :search, '%')) " +
+            "or lower(b.referenceClient) like lower(concat('%', :search, '%')) " +
+            "or lower(b.lieu) like lower(concat('%', :search, '%')))"
+    )
+    Page<BonCommande> findAllBySearch(@Param("search") String search, Pageable pageable);
+
+    // Utilisateur normal : seulement ceux accessibles via ACL, filtrés par la recherche
+    @Query(
+        "select b from BonCommande b where b.id in (" +
+            "  select e.objectId from AclEntry e where e.objectType = 'BONCOMMANDE'" +
+            "  and e.sidId in :sidIds and (e.canRead = true or e.canWrite = true)" +
+            ") and (:search = '' " +
+            "or lower(b.identifiantUnique) like lower(concat('%', :search, '%')) " +
+            "or lower(b.referenceClient) like lower(concat('%', :search, '%')) " +
+            "or lower(b.lieu) like lower(concat('%', :search, '%')))"
+    )
+    Page<BonCommande> findAccessibleBySearch(
+        @Param("sidIds") List<Long> sidIds,
+        @Param("search") String search,
+        Pageable pageable
+    );
 }
