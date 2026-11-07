@@ -177,20 +177,42 @@ public class OtExterneService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public Page<OtExterneDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Affaires");
+    public Page<OtExterneDTO> findAll(StatutOtExterne statut, String search, List<Long> affaireIds, Pageable pageable) {
+        log.debug("Request to get OtExternes statut={} search={}", statut, search);
+
+        String statutParam = statut == null ? "" : statut.name();
+        String term = search == null ? "" : search.trim();
+        // IN () vide interdit : valeur sentinelle si aucune affaire ne correspond
+        List<Long> ids = (affaireIds == null || affaireIds.isEmpty()) ? List.of(-1L) : affaireIds;
 
         // << ACL : bypass admin
         if (SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
-            return otExterneRepository.findAll(pageable).map(otExterneMapper::toDto);
+            return otExterneRepository.searchAll(statutParam, term, ids, pageable).map(otExterneMapper::toDto);
         }
 
-        // << ACL : seulement les affaires accessibles (filtrage en base, pagination préservée)
         List<Long> sidIds = aclUtilService.getCurrentUserSids().stream().map(AclSid::getId).collect(Collectors.toList());
         if (sidIds.isEmpty()) {
             return Page.empty(pageable);
         }
-        return otExterneRepository.findAllAccessible(sidIds, pageable).map(otExterneMapper::toDto);
+        return otExterneRepository.searchAccessible(statutParam, term, ids, sidIds, pageable).map(otExterneMapper::toDto);
+    }
+
+    /**
+     * Nombre d'OT par statut (respecte l'ACL) : { "Brouillon": 2, "Fin": 1 }.
+     */
+    @Transactional(readOnly = true)
+    public java.util.Map<String, Long> countByStatut() {
+        List<Object[]> rows;
+        if (SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
+            rows = otExterneRepository.countGroupByStatut();
+        } else {
+            List<Long> sidIds = aclUtilService.getCurrentUserSids().stream().map(AclSid::getId).collect(Collectors.toList());
+            if (sidIds.isEmpty()) {
+                return java.util.Collections.emptyMap();
+            }
+            rows = otExterneRepository.countAccessibleGroupByStatut(sidIds);
+        }
+        return rows.stream().collect(Collectors.toMap(r -> ((StatutOtExterne) r[0]).name(), r -> (Long) r[1]));
     }
 
     /**
