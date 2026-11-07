@@ -1,5 +1,6 @@
 package com.gpm.finance.web.rest;
 
+import com.gpm.finance.domain.enumeration.StatutOtExterne;
 import com.gpm.finance.repository.OtExterneRepository;
 import com.gpm.finance.service.OtExterneService;
 import com.gpm.finance.service.dto.OtExterneDTO;
@@ -145,11 +146,24 @@ public class OtExterneResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of otExternes in body.
      */
     @GetMapping("/ot-externes")
-    public ResponseEntity<List<OtExterneDTO>> getAllOtExternes(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<OtExterneDTO>> getAllOtExternes(
+        @RequestParam(value = "statut", required = false) StatutOtExterne statut,
+        @RequestParam(value = "search", required = false, defaultValue = "") String search,
+        @RequestParam(value = "affaireIds", required = false) List<Long> affaireIds,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
         log.debug("REST request to get a page of OtExternes");
-        Page<OtExterneDTO> page = otExterneService.findAll(pageable);
+        Page<OtExterneDTO> page = otExterneService.findAll(statut, search, affaireIds, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /ot-externes/count-by-statut} : nombre d'OT par statut.
+     */
+    @GetMapping("/ot-externes/count-by-statut")
+    public ResponseEntity<java.util.Map<String, Long>> countByStatut() {
+        return ResponseEntity.ok().body(otExterneService.countByStatut());
     }
 
     /**
